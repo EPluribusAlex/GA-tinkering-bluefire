@@ -2,7 +2,7 @@
   "name": "GeneticAlgorithms",
   "version": "0.0.1",
   "description": "A series of genetic algorithms for testing purposes.",
-  "main": "test.js",
+  "main": "index.html",
   "author": "AFP",
   "license": "MIT",
   "type": "module"
