@@ -2,10 +2,10 @@ import { cities, evaluate, GA } from './index.js';
 
 const testSet = {
 	chromeLength: cities.length,
-	popSize: 300,
+	popSize: 500,
 	probC: 0.8,
 	probM: 0.01,
-	iterations: 300
+	iterations: 100
 };
 
 const test = new GA(evaluate, testSet);
