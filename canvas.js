@@ -145,10 +145,14 @@ window.onload = function() {
 	GA.prototype.run = function() {
 		let	population = this.populate(this.popSize);
 
+		const evolution = [];
+
 		for(let i = 0; i < this.iterations; i++) {
 			const newPop = [];
 
 			const elite = this.selectBest(population);
+
+			evolution.push(elite);
 
 			newPop.push(elite);
 
@@ -199,7 +203,7 @@ window.onload = function() {
 
 		const fittest = this.selectBest(population);
 
-		return fittest;
+		return [fittest, evolution];
 	};
 
 	let evaluate = function(input) {
@@ -244,4 +248,6 @@ window.onload = function() {
 			y = (e[1] + 20) * 15 - 5;
 		ctx.fillRect(x, y, 10, 10);
 	});
+
+	console.log(test.run());
 };
