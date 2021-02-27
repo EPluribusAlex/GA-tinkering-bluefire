@@ -1,9 +1,9 @@
 window.onload = function() {
-	const canvasTop = document.getElementById("GA-expression");
-	const ctx1 = canvasTop.getContext("2d");
+	const canvas1 = document.getElementById("GA-expression");
+	const ctx1 = canvas1.getContext("2d");
 
-	const canvasBottom = document.getElementById("base");
-	const ctx2 = canvasBottom.getContext("2D");
+	const canvas2 = document.getElementById("base");
+	const ctx2 = canvas2.getContext("2d");
 
 	const GA = function(evaluate, testSet) {
 		this.evaluate = evaluate;
@@ -240,36 +240,36 @@ window.onload = function() {
 		popSize: 500,
 		probC: 0.8,
 		probM: 0.01,
-		iterations: 50
+		iterations: 100
 	};
 
 	const test = new GA(evaluate, testSet);
 
-	const coordinates = function(sequence) {
+	const coordinates = function(order) {
 		return {
-			0: [ (cities[sequence[0]][0] + 20) * 15, (cities[sequence[0]][1] + 20) * 15 ],
-			1: [ (cities[sequence[1]][0] + 20) * 15, (cities[sequence[1]][1] + 20) * 15 ],
-			2: [ (cities[sequence[2]][0] + 20) * 15, (cities[sequence[2]][1] + 20) * 15 ],
-			3: [ (cities[sequence[3]][0] + 20) * 15, (cities[sequence[3]][1] + 20) * 15 ],
-			4: [ (cities[sequence[4]][0] + 20) * 15, (cities[sequence[4]][1] + 20) * 15 ],
-			5: [ (cities[sequence[5]][0] + 20) * 15, (cities[sequence[5]][1] + 20) * 15 ],
-			6: [ (cities[sequence[6]][0] + 20) * 15, (cities[sequence[6]][1] + 20) * 15 ],
-			7: [ (cities[sequence[7]][0] + 20) * 15, (cities[sequence[7]][1] + 20) * 15 ],
-			8: [ (cities[sequence[8]][0] + 20) * 15, (cities[sequence[8]][1] + 20) * 15 ],
-			9: [ (cities[sequence[9]][0] + 20) * 15, (cities[sequence[9]][1] + 20) * 15 ]
+			0: [ (cities[order[0]][0] + 20) * 15, (cities[order[0]][1] + 20) * 15 ],
+			1: [ (cities[order[1]][0] + 20) * 15, (cities[order[1]][1] + 20) * 15 ],
+			2: [ (cities[order[2]][0] + 20) * 15, (cities[order[2]][1] + 20) * 15 ],
+			3: [ (cities[order[3]][0] + 20) * 15, (cities[order[3]][1] + 20) * 15 ],
+			4: [ (cities[order[4]][0] + 20) * 15, (cities[order[4]][1] + 20) * 15 ],
+			5: [ (cities[order[5]][0] + 20) * 15, (cities[order[5]][1] + 20) * 15 ],
+			6: [ (cities[order[6]][0] + 20) * 15, (cities[order[6]][1] + 20) * 15 ],
+			7: [ (cities[order[7]][0] + 20) * 15, (cities[order[7]][1] + 20) * 15 ],
+			8: [ (cities[order[8]][0] + 20) * 15, (cities[order[8]][1] + 20) * 15 ],
+			9: [ (cities[order[9]][0] + 20) * 15, (cities[order[9]][1] + 20) * 15 ]
 		}
 	};
 
-	// cities.forEach(e => {
-	// 	ctx2.beginPath();
-	// 	const 
-	// 		x = (e[0] + 20) * 15 - 5,
-	// 		y = (e[1] + 20) * 15 - 5;
-	// 	ctx2.fillRect(x, y, 10, 10);
-	// });
+	cities.forEach(e => {
+		ctx2.beginPath();
+		const 
+			x = (e[0] + 20) * 15 - 5,
+			y = (e[1] + 20) * 15 - 5;
+		ctx2.fillRect(x, y, 10, 10);
+	});
 
 	const result = test.run();
-	console.log(result);
+	console.log(result[0], "GA result");
 
 	const drawPattern = function(sequence) {
 		ctx1.beginPath();
@@ -286,11 +286,35 @@ window.onload = function() {
 		ctx1.stroke();
 	};
 
-	for(let i = 0; i < result[1].length; i++) {
-		setTimeout(function() { drawPattern(coordinates(result[1][i].genome)) }, 500 * i);
+	const sequence = [];
+
+	function arrayEquals(a, b) {
+	  return Array.isArray(a) &&
+	    Array.isArray(b) &&
+	    a.length === b.length &&
+	    a.every((val, index) => val === b[index]);
 	}
 
-	const finalPattern = coordinates(result[0].genome);
+	for(let i = 0; i < result[1].length; i++) {
+		if(i === 0) {
+			sequence.push(result[1][0].genome);
+		} else if(arrayEquals(result[1][i].genome, result[1][i - 1].genome) === false) {
+			sequence.push(result[1][i].genome);
+		}
+	}
 
-	// drawPattern(finalPattern);
+	if(arrayEquals(result[0].genome, sequence[sequence.length - 1]) === false) {
+		sequence.push(result[0].genome);
+	}
+
+	console.log(sequence, "sequence");
+	console.log(sequence[0], "test");
+
+	for(let i = 0; i < sequence.length; i++) {
+		setTimeout(function() { 
+			console.log("Iteration " + i);
+			ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+			drawPattern(coordinates(sequence[i])); 
+		}, 500 * i);
+	}
 };
