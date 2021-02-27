@@ -1,6 +1,9 @@
 window.onload = function() {
-	const canvas = document.getElementById('GA-expression');
-	const ctx = canvas.getContext('2d');
+	const canvasTop = document.getElementById("GA-expression");
+	const ctx1 = canvasTop.getContext("2d");
+
+	const canvasBottom = document.getElementById("base");
+	const ctx2 = canvasBottom.getContext("2D");
 
 	const GA = function(evaluate, testSet) {
 		this.evaluate = evaluate;
@@ -237,17 +240,57 @@ window.onload = function() {
 		popSize: 500,
 		probC: 0.8,
 		probM: 0.01,
-		iterations: 100
+		iterations: 50
 	};
 
 	const test = new GA(evaluate, testSet);
 
-	cities.forEach(e => {
-		const 
-			x = (e[0] + 20) * 15 - 5,
-			y = (e[1] + 20) * 15 - 5;
-		ctx.fillRect(x, y, 10, 10);
-	});
+	const coordinates = function(sequence) {
+		return {
+			0: [ (cities[sequence[0]][0] + 20) * 15, (cities[sequence[0]][1] + 20) * 15 ],
+			1: [ (cities[sequence[1]][0] + 20) * 15, (cities[sequence[1]][1] + 20) * 15 ],
+			2: [ (cities[sequence[2]][0] + 20) * 15, (cities[sequence[2]][1] + 20) * 15 ],
+			3: [ (cities[sequence[3]][0] + 20) * 15, (cities[sequence[3]][1] + 20) * 15 ],
+			4: [ (cities[sequence[4]][0] + 20) * 15, (cities[sequence[4]][1] + 20) * 15 ],
+			5: [ (cities[sequence[5]][0] + 20) * 15, (cities[sequence[5]][1] + 20) * 15 ],
+			6: [ (cities[sequence[6]][0] + 20) * 15, (cities[sequence[6]][1] + 20) * 15 ],
+			7: [ (cities[sequence[7]][0] + 20) * 15, (cities[sequence[7]][1] + 20) * 15 ],
+			8: [ (cities[sequence[8]][0] + 20) * 15, (cities[sequence[8]][1] + 20) * 15 ],
+			9: [ (cities[sequence[9]][0] + 20) * 15, (cities[sequence[9]][1] + 20) * 15 ]
+		}
+	};
 
-	console.log(test.run());
+	// cities.forEach(e => {
+	// 	ctx2.beginPath();
+	// 	const 
+	// 		x = (e[0] + 20) * 15 - 5,
+	// 		y = (e[1] + 20) * 15 - 5;
+	// 	ctx2.fillRect(x, y, 10, 10);
+	// });
+
+	const result = test.run();
+	console.log(result);
+
+	const drawPattern = function(sequence) {
+		ctx1.beginPath();
+		ctx1.moveTo(sequence[0][0], sequence[0][1]);
+		ctx1.lineTo(sequence[1][0], sequence[1][1]);
+		ctx1.lineTo(sequence[2][0], sequence[2][1]);
+		ctx1.lineTo(sequence[3][0], sequence[3][1]);
+		ctx1.lineTo(sequence[4][0], sequence[4][1]);
+		ctx1.lineTo(sequence[5][0], sequence[5][1]);
+		ctx1.lineTo(sequence[6][0], sequence[6][1]);
+		ctx1.lineTo(sequence[7][0], sequence[7][1]);
+		ctx1.lineTo(sequence[8][0], sequence[8][1]);
+		ctx1.lineTo(sequence[9][0], sequence[9][1]);
+		ctx1.stroke();
+	};
+
+	for(let i = 0; i < result[1].length; i++) {
+		setTimeout(function() { drawPattern(coordinates(result[1][i].genome)) }, 500 * i);
+	}
+
+	const finalPattern = coordinates(result[0].genome);
+
+	// drawPattern(finalPattern);
 };
