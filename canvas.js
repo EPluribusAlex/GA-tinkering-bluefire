@@ -271,6 +271,8 @@ window.onload = function() {
 	const result = test.run();
 	console.log(result[0], "GA result");
 
+	ctx1.strokeStyle = "red";
+
 	const drawPattern = function(sequence) {
 		ctx1.beginPath();
 		ctx1.moveTo(sequence[0][0], sequence[0][1]);
@@ -308,7 +310,6 @@ window.onload = function() {
 	}
 
 	console.log(sequence, "sequence");
-	console.log(sequence[0], "test");
 
 	for(let i = 0; i < sequence.length; i++) {
 		setTimeout(function() { 
