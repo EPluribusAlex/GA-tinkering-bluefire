@@ -233,14 +233,14 @@ window.onload = function() {
 		return ( input.length / (distanceSum + input.length) );
 	}
 
-	const cities =  [ [12.3, 8.7], [5.9, -16.1], [-9.4, 17.3], [4.7, 0.7], [-3.2, -11.6], [3.8, 10.6], [-4.2, -7.1], [-4.6, 9.2], [3.5, -6.6], [15.0, 7.9] ];
+	const cities =  [ [12.3, 8.7], [5.9, -16.1], [-9.4, 17.3], [4.7, 0.7], [-3.2, -11.6], [3.8, 10.6], [-4.2, -7.1], [-4.6, 9.2], [3.5, -6.6], [15.0, 7.9], [-4.4, 2], [16.1, 13], [-19.1, 17.6], [-9.2, 5.8], [11.7, 0.4], [12.5, 10], [8.9, 4.9], [4.6, -6.2], [1, -3], [0, 0] ];
 
 	const testSet = {
 		chromeLength: cities.length,
 		popSize: 500,
-		probC: 0.8,
-		probM: 0.01,
-		iterations: 100
+		probC: 0.7,
+		probM: 0.02,
+		iterations: 1000
 	};
 
 	const test = new GA(evaluate, testSet);
@@ -256,7 +256,17 @@ window.onload = function() {
 			6: [ (cities[order[6]][0] + 20) * 15, (cities[order[6]][1] + 20) * 15 ],
 			7: [ (cities[order[7]][0] + 20) * 15, (cities[order[7]][1] + 20) * 15 ],
 			8: [ (cities[order[8]][0] + 20) * 15, (cities[order[8]][1] + 20) * 15 ],
-			9: [ (cities[order[9]][0] + 20) * 15, (cities[order[9]][1] + 20) * 15 ]
+			9: [ (cities[order[9]][0] + 20) * 15, (cities[order[9]][1] + 20) * 15 ],
+			10: [ (cities[order[10]][0] + 20) * 15, (cities[order[10]][1] + 20) * 15 ],
+			11: [ (cities[order[11]][0] + 20) * 15, (cities[order[11]][1] + 20) * 15 ],
+			12: [ (cities[order[12]][0] + 20) * 15, (cities[order[12]][1] + 20) * 15 ],
+			13: [ (cities[order[13]][0] + 20) * 15, (cities[order[13]][1] + 20) * 15 ],
+			14: [ (cities[order[14]][0] + 20) * 15, (cities[order[14]][1] + 20) * 15 ],
+			15: [ (cities[order[15]][0] + 20) * 15, (cities[order[15]][1] + 20) * 15 ],
+			16: [ (cities[order[16]][0] + 20) * 15, (cities[order[16]][1] + 20) * 15 ],
+			17: [ (cities[order[17]][0] + 20) * 15, (cities[order[17]][1] + 20) * 15 ],
+			18: [ (cities[order[18]][0] + 20) * 15, (cities[order[18]][1] + 20) * 15 ],
+			19: [ (cities[order[19]][0] + 20) * 15, (cities[order[19]][1] + 20) * 15 ]
 		}
 	};
 
@@ -285,6 +295,16 @@ window.onload = function() {
 		ctx1.lineTo(sequence[7][0], sequence[7][1]);
 		ctx1.lineTo(sequence[8][0], sequence[8][1]);
 		ctx1.lineTo(sequence[9][0], sequence[9][1]);
+		ctx1.lineTo(sequence[10][0], sequence[10][1]);
+		ctx1.lineTo(sequence[11][0], sequence[11][1]);
+		ctx1.lineTo(sequence[12][0], sequence[12][1]);
+		ctx1.lineTo(sequence[13][0], sequence[13][1]);
+		ctx1.lineTo(sequence[14][0], sequence[14][1]);
+		ctx1.lineTo(sequence[15][0], sequence[15][1]);
+		ctx1.lineTo(sequence[16][0], sequence[16][1]);
+		ctx1.lineTo(sequence[17][0], sequence[17][1]);
+		ctx1.lineTo(sequence[18][0], sequence[18][1]);
+		ctx1.lineTo(sequence[19][0], sequence[19][1]);
 		ctx1.stroke();
 	};
 
